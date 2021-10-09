@@ -5,12 +5,8 @@ const Utilities = require("./utilities");
 
 class Controller {
   async getTokenMetadata(id) {
-    return new Promise((resolve, reject) => {
-      const token = Token.findById(id);
-      const formattedTokenMetadata = new Utilities().formatTokenMetadata(token);
-
-      resolve(formattedTokenMetadata);
-    });
+    const token = await Token.findOne({ tokenId: id }).exec();
+    return new Utilities().formatTokenMetadata(token);
   }
 }
 module.exports = Controller;
